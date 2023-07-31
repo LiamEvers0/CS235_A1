@@ -26,4 +26,5 @@ def main():
     print(game1.image_url)
     game1.website_url = "randomurl2"
     print(game1.website_url)
+
 main()

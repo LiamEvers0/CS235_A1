@@ -165,6 +165,7 @@ class Game:
     def publisher(self) -> Publisher:
         return self.__game_publisher
 
+
     @publisher.setter
     def publisher(self, new_publisher):
         if not isinstance(new_publisher, Publisher):
