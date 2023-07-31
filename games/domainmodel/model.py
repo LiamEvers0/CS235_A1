@@ -104,6 +104,12 @@ class Game:
     def game_id(self) -> int:
         return self.__game_id
 
+    @game_id.setter
+    def game_id(self, new_game_id):
+        if (not isinstance(new_game_id, int)) or new_game_id < 0:
+            raise ValueError
+        else:
+            self.__game_id = new_game_id
     @property
     def genres(self) -> list:
         return self.__game_genres
@@ -133,7 +139,7 @@ class Game:
 
     @price.setter
     def price(self, new_price):
-        if (not isinstance(new_price, int)) or new_price < 0:
+        if (not isinstance(new_price, int)) or (not isinstance(new_price, float)) or new_price < 0:
             raise ValueError
         else:
             self.__game_price = new_price
@@ -199,30 +205,33 @@ class Game:
         return f"<Game {self.__game_id}, {self.__game_title}>"
 
     def __eq__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        else:
+        if isinstance(other, self.__class__):
             return self.__game_id == other.__game_id
+        return False
 
     def __lt__(self, other):
         if isinstance(other, self.__class__):
             return self.__game_id < other.__game_id
+        return False
 
     def __hash__(self):
         return hash(self.__game_id)
 
     def add_genre(self, new_genre):
-        if isinstance(new_genre, Genre) and not (new_genre in self.__game_genres):
+        if isinstance(new_genre, Genre) and (not new_genre in self.__game_genres):
             self.__game_genres.append(new_genre)
 
     def remove_genre(self, genre_to_remove):
-        if isinstance(genre_to_remove, Genre) and genre_to_remove in self.__game_genres:
+        if genre_to_remove in self.__game_genres:
             self.__game_genres.remove(genre_to_remove)
 
 
 class User:
-    # TODO
-    pass
+    def __init__(self, username, password):
+        self.__username = username
+        self.__password = password
+
+
 
 
 class Review:
