@@ -140,18 +140,15 @@ class Game:
 
     @property
     def release_date(self) -> str:
-        return self.__game_release_date
+        return self.__release_date
 
     @release_date.setter
     def release_date(self, new_release_date):
-        if not isinstance(new_release_date, str):
+        try:
+            date = datetime.datetime.strptime(new_release_date, "%b %d, %Y")
+            self.__release_date = date.strftime("%b %d, %Y")
+        except:
             raise ValueError
-        else:
-            try:
-                datetime.strftime(new_release_date, '%b %d, %Y')
-                self.__game_release_date = new_release_date
-            except:
-                raise ValueError
 
     @property
     def description(self) -> str:

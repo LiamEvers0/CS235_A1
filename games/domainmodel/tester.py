@@ -13,6 +13,6 @@ def main():
     print(game1.genres)
     game1.remove_genre(genre2)
     print(game1.genres)
-    game1.release_date("Oct 21, 2008")
+    game1.release_date = "Oct 21, 2008"
     print(game1.release_date)
 main()
