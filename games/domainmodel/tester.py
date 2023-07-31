@@ -1,4 +1,4 @@
-from games.domainmodel.model import Game, Genre
+from games.domainmodel.model import Game, Genre, Publisher
 
 
 def main():
@@ -15,4 +15,15 @@ def main():
     print(game1.genres)
     game1.release_date = "Oct 21, 2008"
     print(game1.release_date)
+    print(game1.game_id)
+    print(game1.title)
+    game1.description = "Game with cars"
+    print(game1.description)
+    publisher1 = Publisher("Psyonix")
+    game1.publisher = publisher1
+    print(game1.publisher)
+    game1.image_url = "randomurl"
+    print(game1.image_url)
+    game1.website_url = "randomurl2"
+    print(game1.website_url)
 main()

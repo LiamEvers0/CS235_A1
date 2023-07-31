@@ -140,13 +140,13 @@ class Game:
 
     @property
     def release_date(self) -> str:
-        return self.__release_date
+        return self.__game_release_date
 
     @release_date.setter
     def release_date(self, new_release_date):
         try:
             date = datetime.datetime.strptime(new_release_date, "%b %d, %Y")
-            self.__release_date = date.strftime("%b %d, %Y")
+            self.__game_release_date = date.strftime("%b %d, %Y")
         except:
             raise ValueError
 
