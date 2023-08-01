@@ -23,7 +23,11 @@ class GameFileCSVReader:
         return self.__dataset_of_genres
 
     def read_csv_file(self):
-        with open(self.__filename) as file:
-            for line in file:
-
-
+        with open(self.__filename, "r") as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            for row in csv_reader:
+                self.__dataset_of_games.append(row)
+                self.__dataset_of_publishers.add(row['Publishers'])
+                genres = row['Genres'].split(',')
+                for genre in genres:
+                    self.__dataset_of_genres.add(genre.strip())
