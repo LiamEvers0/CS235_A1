@@ -59,5 +59,6 @@ class TestArtist:
 
 
 
+
 test = TestArtist()
 test.test_construction()

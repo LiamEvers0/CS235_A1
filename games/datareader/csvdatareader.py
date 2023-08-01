@@ -26,3 +26,4 @@ class GameFileCSVReader:
         with open(self.__filename) as file:
             for line in file:
 
+

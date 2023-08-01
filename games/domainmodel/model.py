@@ -289,6 +289,7 @@ class User:
             self.__reviews.remove(review)
 
 
+
 class Review:
     def __init__(self, user, game, rating, comment):
         if isinstance(user, User):
