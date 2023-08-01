@@ -23,5 +23,6 @@ class GameFileCSVReader:
         return self.__dataset_of_genres
 
     def read_csv_file(self):
-        # TODO
-        pass
+        with open(self.__filename) as file:
+            for line in file:
+

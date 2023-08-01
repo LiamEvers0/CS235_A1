@@ -110,6 +110,7 @@ class Game:
             raise ValueError
         else:
             self.__game_id = new_game_id
+
     @property
     def genres(self) -> list:
         return self.__game_genres
@@ -139,10 +140,13 @@ class Game:
 
     @price.setter
     def price(self, new_price):
-        if (not isinstance(new_price, int)) or (not isinstance(new_price, float)) or new_price < 0:
-            raise ValueError
+        if isinstance(new_price, int) or isinstance(new_price, float):
+            if new_price >= 0:
+                self.__game_price = new_price
+            else:
+                raise ValueError
         else:
-            self.__game_price = new_price
+            raise ValueError
 
     @property
     def release_date(self) -> str:
@@ -170,7 +174,6 @@ class Game:
     @property
     def publisher(self) -> Publisher:
         return self.__game_publisher
-
 
     @publisher.setter
     def publisher(self, new_publisher):
@@ -252,6 +255,7 @@ class User:
     @property
     def favourite_games(self) -> list:
         return self.__favourite_games
+
     def __repr__(self):
         return f"<User {self.__username}>"
 
@@ -284,10 +288,17 @@ class User:
         if review in self.__reviews:
             self.__reviews.remove(review)
 
+
 class Review:
     def __init__(self, user, game, rating, comment):
-        self.__user = user
-        self.__game = game
+        if isinstance(user, User):
+            self.__user = user
+        else:
+            raise ValueError
+        if isinstance(game, Game):
+            self.__game = game
+        else:
+            raise ValueError
         if isinstance(comment, str):
             comment.strip()
             if comment.strip() == "":
@@ -340,6 +351,7 @@ class Review:
         if isinstance(other, self.__class__):
             return self.__user == other.user and self.__game == other.game and self.__comment == other.comment and self.__rating == other.rating
         return False
+
 
 class Wishlist:
     # TODO
