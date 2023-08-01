@@ -228,16 +228,118 @@ class Game:
 
 class User:
     def __init__(self, username, password):
-        self.__username = username
-        self.__password = password
+        self.__username = username.strip().lower()
+        if self.__username == "":
+            raise ValueError
+        self.__password = password.strip()
+        if len(self.__password) < 7:
+            raise ValueError
+        self.__favourite_games = []
+        self.__reviews = []
 
+    @property
+    def username(self) -> str:
+        return self.__username
 
+    @property
+    def password(self) -> str:
+        return self.__password
 
+    @property
+    def reviews(self) -> list:
+        return self.__reviews
+
+    @property
+    def favourite_games(self) -> list:
+        return self.__favourite_games
+    def __repr__(self):
+        return f"<User {self.__username}>"
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.__username == other.username
+        return False
+
+    def __lt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.__username < other.username
+        return False
+
+    def __hash__(self):
+        return hash(self.__username)
+
+    def remove_favourite_game(self, game):
+        if game in self.__favourite_games:
+            self.__favourite_games.remove(game)
+
+    def add_favourite_game(self, game):
+        if not (game in self.__favourite_games) and isinstance(game, Game):
+            self.__favourite_games.append(game)
+
+    def add_review(self, review):
+        if not (review in self.__reviews) and isinstance(review, Review):
+            self.__reviews.append(review)
+
+    def remove_review(self, review):
+        if review in self.__reviews:
+            self.__reviews.remove(review)
 
 class Review:
-    # TODO
-    pass
+    def __init__(self, user, game, rating, comment):
+        self.__user = user
+        self.__game = game
+        if isinstance(comment, str):
+            comment.strip()
+            if comment.strip() == "":
+                raise ValueError
+        else:
+            raise ValueError
+        self.__comment = comment.strip()
+        if isinstance(rating, int) and 0 <= rating <= 5:
+            self.__rating = rating
+        else:
+            raise ValueError
 
+    @property
+    def user(self) -> User:
+        return self.__user
+
+    @property
+    def game(self) -> Game:
+        return self.__game
+
+    @property
+    def comment(self) -> str:
+        return self.__comment
+
+    @comment.setter
+    def comment(self, comment: str):
+        if isinstance(comment, str):
+            comment.strip()
+            if comment.strip() == "":
+                raise ValueError
+        else:
+            raise ValueError
+        self.__comment = comment.strip()
+
+    @property
+    def rating(self) -> int:
+        return self.__rating
+
+    @rating.setter
+    def rating(self, rating):
+        if isinstance(rating, int) and 0 <= rating <= 5:
+            self.__rating = rating
+        else:
+            raise ValueError
+
+    def __repr__(self):
+        return f"Review(User: {str(self.__user)}, Game: {str(self.__game)}, Rating: {self.__rating}, Comment: {self.__comment})"
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.__user == other.user and self.__game == other.game and self.__comment == other.comment and self.__rating == other.rating
+        return False
 
 class Wishlist:
     # TODO
