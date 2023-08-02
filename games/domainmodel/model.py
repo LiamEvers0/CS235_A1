@@ -355,5 +355,41 @@ class Review:
 
 
 class Wishlist:
-    # TODO
-    pass
+    def __init__(self):
+        self.__list_of_games = []
+        self.__index = 0
+
+    def add_game(self, new_game):
+        if isinstance(new_game, Game) and not new_game in self.__list_of_games:
+            self.__list_of_games.append(new_game)
+
+
+    def remove_game(self, game_to_remove):
+        if game_to_remove in self.__list_of_games:
+            self.__list_of_games.remove(game_to_remove)
+
+
+    def select_game(self, index):
+        if isinstance(index, int) and 0 <= index <= len(self.__list_of_games)-1:
+            return self.__list_of_games[index]
+        else:
+            raise ValueError
+
+    def size(self):
+        return len(self.__list_of_games)
+
+    def first_game_in_list(self):
+        if len(self.__list_of_games) == 0:
+            return None
+        return self.__list_of_games[0]
+
+    def __iter__(self):
+        self.__index = 0
+        return self
+    def __next__(self):
+        if self.__index < len(self.__list_of_games):
+            game = self.__list_of_games[self.__index]
+            self.__index += 1
+            return game
+        else:
+            raise StopIteration
